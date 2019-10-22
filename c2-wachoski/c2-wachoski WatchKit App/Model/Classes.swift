@@ -50,46 +50,42 @@ class Plant {
     
     let id: Int
     var name: String
-    var frequency: Frequency
-    var startHourAllert: Date // a hora que vamos alertar a pessoa de fazer
-    var duration: Double // timeinterval
-    var growthIndex: Int
-    
-    var toggleManager: Toggler = Toggler()
-    
-    init(name: String, frequency: Frequency, startHourAllert: Date, duration: Double, growthIndex: Int) {
+    var size: Int
+        
+    init(name: String, size: Int) {
         self.id = Plant.next_id
         Plant.next_id += 1
         
         self.name = name
-        self.frequency = frequency
-        self.startHourAllert = startHourAllert
-        self.duration = duration
-        self.growthIndex = growthIndex
+        self.size = size
     }
     
-    func toggle() {
-        self.toggleManager.startToggle()
+    public func growBasedInResource(resource: Resource){
+        let growthByResource = resource.growthBasedInRatio()
+        self.size += growthByResource
     }
-    
-    func distoggle() {
-        self.growthIndex += self.toggleManager.getGrowth()
-    }
-    
 }
 
-class Toggler {
-    var startDate: Date?
+class Resource{
+    public func interpretDataFromCircle() -> Int{ return -1}
+    public func useResource(){} // used when the resource button is pressed
+    public func growthBasedInRatio() -> Int{ return -1 /* uses growthRatio*/} // returnes how much the plant should grow based in circle results.
     
-    func startToggle() {
-         //hora atual
-    }
-    
-    func getGrowth() -> Int { // retorna quanto deve ser incrementado no growthIndex
-        //pega a hora atual , a inicial e calcula e devorve
-        return 0
-    }
+    public var growthRatio: Int = 0
 }
+
+class Water: Resource{
+    //
+}
+
+class Sun: Resource{
+    //
+}
+
+class Fertilizer: Resource{
+    //
+}
+
 
 class VisualPlant { // decide pelo growth index, qual imagem mostrar
     let referencePlant: Plant
