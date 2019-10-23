@@ -66,27 +66,58 @@ class Plant {
     }
 }
 
-class Resource{
-    public func interpretDataFromCircle() -> Int{ return -1}
-    public func useResource(){} // used when the resource button is pressed
-    public func growthBasedInRatio() -> Int{ return -1 /* uses growthRatio*/} // returnes how much the plant should grow based in circle results.
+protocol Resource{
+    func interpretDataFromCircle() -> Int
+    func useResource()// used when the resource button is   ssed
+    func growthBasedInRatio() -> Int/* uses growthRatio*/ // returnes how much the plant should grow based in circle results.
     
-    public var growthRatio: Int = 0
 }
 
 class Water: Resource{
-    //
+    func interpretDataFromCircle() -> Int {
+        return -1
+    }
+    
+    func useResource() {
+        
+    }
+    
+    func growthBasedInRatio() -> Int {
+        return -1
+    }
 }
 
 class Sun: Resource{
+    func interpretDataFromCircle() -> Int {
+        return -1
+    }
+    
+    func useResource() {
+        
+    }
+    
+    func growthBasedInRatio() -> Int {
+        return -1
+    }
+    
     //
 }
 
 class Fertilizer: Resource{
+    func interpretDataFromCircle() -> Int {
+        return -1
+    }
+    
+    func useResource() {
+        
+    }
+    
+    func growthBasedInRatio() -> Int {
+        return -1
+    }
+    
     //
 }
-
-
 class VisualPlant { // decide pelo growth index, qual imagem mostrar
     let referencePlant: Plant
     
