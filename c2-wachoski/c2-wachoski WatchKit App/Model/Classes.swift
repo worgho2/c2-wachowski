@@ -75,7 +75,7 @@ class Resource{
 }
 
 class Water: Resource{
-    //
+    var teste: String?
 }
 
 class Sun: Resource{
