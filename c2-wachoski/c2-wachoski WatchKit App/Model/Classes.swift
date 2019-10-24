@@ -50,24 +50,28 @@ class Plant {
     
     let id: Int
     var name: String
-    var size: Int
+    var size: (water: Int, sun: Int, fertilizer: Int) = (0,0,0)
         
-    init(name: String, size: Int) {
+    init(name: String, water: Int, sun: Int, fertilizer: Int) {
         self.id = Plant.next_id
         Plant.next_id += 1
         
         self.name = name
-        self.size = size
+        self.size.fertilizer = fertilizer
+        self.size.sun = sun
+        self.size.water = water
     }
     
     public func growBasedInResource(resource: Resource){
         let growthByResource = resource.growthBasedInRatio()
-        let growth =
-            self.addGrowthIntoSize(growth: resource.growth)
+        let growth = resource.growth
+        self.addGrowthIntoSize(growth: growth)
     }
     
     public func addGrowthIntoSize(growth: (water: Int, sun: Int, fertilizer: Int)){
-        
+        self.size.fertilizer += growth.fertilizer
+        self.size.sun +=  growth.sun
+        self.size.water += growth.water
     }
 }
 
