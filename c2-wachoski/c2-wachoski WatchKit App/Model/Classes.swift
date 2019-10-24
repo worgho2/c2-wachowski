@@ -48,7 +48,7 @@ struct Frequency {
 class Plant {
     static var next_id: Int = 0
     
-    let id: Int
+    var id: Int
     var name: String
     var size = (water: 0, sun: 0, fertilizer: 0)
         
