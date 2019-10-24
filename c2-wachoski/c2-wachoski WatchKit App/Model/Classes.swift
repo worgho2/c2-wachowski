@@ -62,7 +62,12 @@ class Plant {
     
     public func growBasedInResource(resource: Resource){
         let growthByResource = resource.growthBasedInRatio()
-        self.size += growthByResource
+        let growth =
+            self.addGrowthIntoSize(growth: resource.growth)
+    }
+    
+    public func addGrowthIntoSize(growth: (water: Int, sun: Int, fertilizer: Int)){
+        
     }
 }
 
@@ -71,9 +76,16 @@ protocol Resource{
     func useResource()// used when the resource button is   ssed
     func growthBasedInRatio() -> Int/* uses growthRatio*/ // returnes how much the plant should grow based in circle results.
     
+    var growth : (water: Int, sun: Int, fertilizer: Int){get set}
+    
 }
 
 class Water: Resource{
+    var growth: (water: Int, sun: Int, fertilizer: Int)
+    
+    init(){
+        growth = (0,0,0)
+    }
     func interpretDataFromCircle() -> Int {
         return -1
     }
@@ -88,6 +100,10 @@ class Water: Resource{
 }
 
 class Sun: Resource{
+    var growth: (water: Int, sun: Int, fertilizer: Int)
+    init(){
+        growth = (0,0,0)
+    }
     func interpretDataFromCircle() -> Int {
         return -1
     }
@@ -104,6 +120,10 @@ class Sun: Resource{
 }
 
 class Fertilizer: Resource{
+    var growth: (water: Int, sun: Int, fertilizer: Int)
+    init(){
+        growth = (0,0,0)
+    }
     func interpretDataFromCircle() -> Int {
         return -1
     }
