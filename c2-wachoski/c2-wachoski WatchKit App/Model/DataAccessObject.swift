@@ -22,7 +22,11 @@ class DataAccessObject {
         while i < plants.count{
             UserDefaults.standard.set(plants[i].name , forKey: "plant\(i)name")
             UserDefaults.standard.set(plants[i].id, forKey: "plant\(i)id")
-            UserDefaults.standard.set(plants[i].size, forKey: "plant\(i).size")
+            UserDefaults.standard.set(plants[i].size.water , forKey: "plant\(i).sizeWater")
+            UserDefaults.standard.set(plants[i].size.fertilizer , forKey: "plant\(i).sizeFertilizer")
+            UserDefaults.standard.set(plants[i].size.sun , forKey: "plant\(i).sizeSun")
+
+            
             i += 1
             
         }
@@ -31,12 +35,15 @@ class DataAccessObject {
         var i = 0
         while true{
             if let name = UserDefaults.standard.object(forKey: "plant\(i)name") as? String{
-                if let size = UserDefaults.standard.object(forKey: "plant\(i)size") as? String{
+                if let sizeWater = UserDefaults.standard.object(forKey: "plant\(i)sizeWater") as? String{
                     if let id = UserDefaults.standard.object(forKey: "plant\(i)id") as? String{
-                    
-                        var plant = Plant(name: name, size: Int(size)!)
-                        plant.id = Int(id)!
-                        Model.instance.plants.append(plant)
+                        if let sizeFertilizer = UserDefaults.standard.object(forKey: "plant\(i)sizeWater") as? String{
+                            if let sizeSun = UserDefaults.standard.object(forKey: "plant\(i)sizeSuun") as? String{
+                                var plant = Plant(name: name, water: Int(sizeWater)!, sun:  Int(sizeFertilizer)!, fertilizer: Int(sizeFertilizer)! )
+                                plant.id = Int(id)!
+                                Model.instance.plants.append(plant)
+                            }
+                        }
                     }
                 }
             }
