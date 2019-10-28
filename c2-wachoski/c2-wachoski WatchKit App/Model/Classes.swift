@@ -3,16 +3,17 @@ import Foundation
 class User {
     static var next_id: Int = 0
     
-    let id: Int
+    var id: Int
     var name: String
-    var plants: [Plant]
+    var plants: [Plant] = []
     
-    init(name: String, plants: [Plant]) {
+    init(name: String) {
         self.id = User.next_id
         User.next_id += 1
         
         self.name = name
-        self.plants = plants
+        self.id = 0
+        
     }
     
     func addPlant(_ plant: Plant) {
@@ -35,14 +36,8 @@ class User {
     
     func updatePlant(fromId id: Int, infos: [String : Any]) {
         //
+        
     }
-    
-}
-
-struct Frequency {
-    let singular: String
-    let plural: String
-    let value: Int
 }
 
 class Plant {

@@ -12,7 +12,9 @@ class DataAccessObject {
     static func loadFromUserDefaults() {
         //pegar pra salvar no model
         
-
+        self.loadPlantsFromUDIntoModel()
+        self.loadsUserFromUID()
+        Model.instance.user?.plants = Model.instance.plants
         
     }
     
@@ -20,17 +22,22 @@ class DataAccessObject {
         let plants = Model.instance.plants
         var i = 0
         while i < plants.count{
+            
             UserDefaults.standard.set(plants[i].name , forKey: "plant\(i)name")
             UserDefaults.standard.set(plants[i].id, forKey: "plant\(i)id")
+<<<<<<< Updated upstream
+            UserDefaults.standard.set(plants[i].size, forKey: "plant\(i).size")
+=======
             UserDefaults.standard.set(plants[i].size.water , forKey: "plant\(i).sizeWater")
             UserDefaults.standard.set(plants[i].size.fertilizer , forKey: "plant\(i).sizeFertilizer")
             UserDefaults.standard.set(plants[i].size.sun , forKey: "plant\(i).sizeSun")
 
-            
+>>>>>>> Stashed changes
             i += 1
             
         }
     }
+    
     static func loadPlantsFromUDIntoModel(){
         var i = 0
         while true{
@@ -49,9 +56,27 @@ class DataAccessObject {
             }
         }
     }
+    
+    static func saveUserInUD(){
+        if let user = Model.instance.user{
+//            UserDefaults.standard.set(user.id, forKey "userID")
+            UserDefaults.standard.set(user.name, forKey: "userName")
+            UserDefaults.standard.set(user.id, forKey: "userID")
+        }
+    }
+    
+    static func loadsUserFromUID(){
+        if let userName = UserDefaults.standard.object(forKey: "userName") as? String{
+            if let id = UserDefaults.standard.object(forKey: "userID") as? Int{
+                let user = User(name: userName)
+                Model.instance.user?.id = id
+            }
+        }
+    }
+    
     static func saveOnUserDefaults() {
         savePlantsFromModelOnUD()
-        
+        saveUserInUD()
         //limpar tudo e escrever de novo ou verificar se tem mudanças
     }
 }
