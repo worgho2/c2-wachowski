@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14868" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="watch40"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
+    </dependencies>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="DQC-Vi-Bdi">
+            <objects>
+                <controller id="0sx-rq-1UL">
+                    <items>
+                        <group width="162" height="170" alignment="center" layout="overlap" radius="18.5" id="T5n-zv-Iqc">
+                            <items>
+                                <group width="37" height="37" alignment="center" radius="18" id="TRw-MB-2kx">
+                                    <items>
+                                        <imageView width="22" height="22" alignment="center" verticalAlignment="center" image="Sunlight" contentMode="scaleAspectFill" id="CBL-Dd-dVg">
+                                            <color key="tintColor" red="0.0" green="0.70588235290000001" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </imageView>
+                                    </items>
+                                    <color key="backgroundColor" red="0.0" green="0.70588235290000001" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </group>
+                                <group width="37" height="37" alignment="left" verticalAlignment="center" radius="18" id="xn5-Tb-lGj">
+                                    <items>
+                                        <imageView width="14" height="22" alignment="center" verticalAlignment="center" image="Fertilizer" id="vUD-YQ-ykb"/>
+                                    </items>
+                                    <color key="backgroundColor" red="1" green="0.093197041600963315" blue="0.05390791053635724" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </group>
+                                <group width="37" height="37" alignment="right" verticalAlignment="center" radius="18" id="vyH-ph-cqa">
+                                    <items>
+                                        <imageView width="14" height="20" alignment="center" verticalAlignment="center" image="Water" id="tkz-Ti-IUt"/>
+                                    </items>
+                                    <color key="backgroundColor" red="0.26822834894679692" green="0.70872910976012715" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </group>
+                                <group width="162" height="170" alignment="center" verticalAlignment="bottom" layout="overlap" id="6uy-kc-CUX">
+                                    <items>
+                                        <imageView width="100" height="130" alignment="center" verticalAlignment="bottom" image="square.and.arrow.up" catalog="system" contentMode="scaleAspectFill" id="D43-AK-qwK"/>
+                                    </items>
+                                </group>
+                            </items>
+                            <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="82.271604938271608" y="159.64467005076142"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Fertilizer" width="9" height="12"/>
+        <image name="Sunlight" width="18" height="19"/>
+        <image name="Water" width="9" height="13"/>
+        <image name="square.and.arrow.up" catalog="system" width="56" height="64"/>
+    </resources>
+</document>
