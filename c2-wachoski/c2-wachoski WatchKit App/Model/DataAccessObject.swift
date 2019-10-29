@@ -32,7 +32,10 @@ class DataAccessObject {
             UserDefaults.standard.set(plants[i].size.fertilizer , forKey: "plant\(i).sizeFertilizer")
             UserDefaults.standard.set(plants[i].size.sun , forKey: "plant\(i).sizeSun")
 
+<<<<<<< Updated upstream
 //>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             i += 1
             
         }
