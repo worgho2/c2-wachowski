@@ -18,7 +18,12 @@
 		7AB5FEF2235A36810080D693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5FEF1235A36810080D693 /* Assets.xcassets */; };
 		7AB5FF03235A36D10080D693 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FF02235A36D10080D693 /* Classes.swift */; };
 		7AB5FF06235A3EE50080D693 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FF05235A3EE50080D693 /* Model.swift */; };
+		A55C65B32367755E00740051 /* PlantView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A55C65B22367755E00740051 /* PlantView.storyboard */; };
+		A55C65B62367782F00740051 /* PlantViewing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A55C65B52367782F00740051 /* PlantViewing.storyboard */; };
+		A55C65B72367784500740051 /* PlantViewing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A55C65B52367782F00740051 /* PlantViewing.storyboard */; };
+		A55C65B82367789500740051 /* PlantViewing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A55C65B52367782F00740051 /* PlantViewing.storyboard */; };
 		A58168752360E80B009A465C /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58168742360E802009A465C /* DataAccessObject.swift */; };
+		A5DD5E062368B8010096355A /* plant.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5DD5E042368B8010096355A /* plant.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +84,10 @@
 		7AB5FEF4235A36810080D693 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		7AB5FF02235A36D10080D693 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		7AB5FF05235A3EE50080D693 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		A55C65B22367755E00740051 /* PlantView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlantView.storyboard; sourceTree = "<group>"; };
+		A55C65B52367782F00740051 /* PlantViewing.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlantViewing.storyboard; sourceTree = "<group>"; };
 		A58168742360E802009A465C /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
+		A5DD5E052368B8010096355A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/plant.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +123,9 @@
 		7AB5FED9235A367C0080D693 /* c2-wachoski WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
+				A55C65B22367755E00740051 /* PlantView.storyboard */,
 				7AB5FEDA235A367C0080D693 /* Interface.storyboard */,
+				A5DD5E042368B8010096355A /* plant.storyboard */,
 				7AB5FEDD235A36800080D693 /* Assets.xcassets */,
 				7AB5FEDF235A36800080D693 /* Info.plist */,
 				7AB5FF04235A3ED60080D693 /* Model */,
@@ -133,6 +143,7 @@
 				7AB5FEF1235A36810080D693 /* Assets.xcassets */,
 				7AB5FEF3235A36810080D693 /* Info.plist */,
 				7AB5FEF4235A36810080D693 /* PushNotificationPayload.apns */,
+				A55C65B52367782F00740051 /* PlantViewing.storyboard */,
 			);
 			path = "c2-wachoski WatchKit Extension";
 			sourceTree = "<group>";
@@ -247,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A55C65B82367789500740051 /* PlantViewing.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +266,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A55C65B32367755E00740051 /* PlantView.storyboard in Resources */,
+				A5DD5E062368B8010096355A /* plant.storyboard in Resources */,
 				7AB5FEDE235A36800080D693 /* Assets.xcassets in Resources */,
+				A55C65B72367784500740051 /* PlantViewing.storyboard in Resources */,
 				7AB5FEDC235A367C0080D693 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A55C65B62367782F00740051 /* PlantViewing.storyboard in Resources */,
 				7AB5FEF2235A36810080D693 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +322,14 @@
 				7AB5FEDB235A367C0080D693 /* Base */,
 			);
 			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+		A5DD5E042368B8010096355A /* plant.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A5DD5E052368B8010096355A /* Base */,
+			);
+			name = plant.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

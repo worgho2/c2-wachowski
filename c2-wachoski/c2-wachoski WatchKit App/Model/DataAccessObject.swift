@@ -25,14 +25,14 @@ class DataAccessObject {
             
             UserDefaults.standard.set(plants[i].name , forKey: "plant\(i)name")
             UserDefaults.standard.set(plants[i].id, forKey: "plant\(i)id")
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
             UserDefaults.standard.set(plants[i].size, forKey: "plant\(i).size")
-=======
+//=======
             UserDefaults.standard.set(plants[i].size.water , forKey: "plant\(i).sizeWater")
             UserDefaults.standard.set(plants[i].size.fertilizer , forKey: "plant\(i).sizeFertilizer")
             UserDefaults.standard.set(plants[i].size.sun , forKey: "plant\(i).sizeSun")
 
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
             i += 1
             
         }
@@ -54,6 +54,7 @@ class DataAccessObject {
                     }
                 }
             }
+            i += 1
         }
     }
     
