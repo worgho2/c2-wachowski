@@ -15,6 +15,8 @@ class InterfaceController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
+        print("é o did load")
+        
         // Configure interface objects here.
     }
     
@@ -28,4 +30,7 @@ class InterfaceController: WKInterfaceController {
         super.didDeactivate()
     }
 
+//    @IBAction func botaoTeste() {
+//        print("botão")
+//    }
 }
