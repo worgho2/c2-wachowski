@@ -9,45 +9,22 @@
 import SpriteKit
 import Foundation
 
-/*
->>>---------> To make it work:
-
-class InterfaceController: WKInterfaceController {
-	// Outlet for the SKScene:
-	@IBOutlet weak var scene: WKInterfaceSKScene!
-
-	// Create TreeScene:
-	var tree = TreeScene(size: CGSize(width: XX, height: XX))
-
-	func willActivate () {
-		super.willActivate()
-
-		// Define Background color for SKScene
-		tree.backgroundColor = .black
-
-		// Present TreeScene in the SKScene
-		scene.presentScene(tree, transition: .crossFade(withDuration: 0.1))
-
-		// Create the 1st branch
-		tree.createTree()
-	}
-}
-
->>>---------> To create 1 more layer of branches:
-Call Function:
-	tree.growNewBranches()
-
-*/
-
 class TreeScene: SKScene {
 	
 	// [depthOfBranch : [Branches]]
 	var treeBranchs : [CGFloat: [Branch]] = [:]
+	var ogBranch    : Branch!
+	
+	var width  : CGFloat = 200
+	var height : CGFloat = 200
 	
 	func createTree () {
-		self.scaleMode = .aspectFit
+		//self.scaleMode = .aspectFit
 		
 		createNewBranch(parent: nil, type: "A", depth: 0)
+		
+		width = self.frame.size.width
+		height = self.frame.size.height
 	}
 	
 	func growNewBranches () {
@@ -72,14 +49,18 @@ class TreeScene: SKScene {
 				createNewBranch(parent: branch, type: type, depth: minDepth-1)
 			}
 		}
+		
+		let newBranches : [Branch] = treeBranchs[minDepth-1]!
+		
+		checkSize(branches: newBranches)
 	}
 	
 	func createNewBranch (parent: Branch?, type: Character, depth: CGFloat) {
 		// 1. Get all values
 		let lineWidth = getLineWidth()
-		let iniPos : CGPoint = parent?.endPos! ?? CGPoint(x: self.frame.width/2, y: 0)
+		let iniPos : CGPoint = parent?.endPos! ?? CGPoint(x: 0, y: 0)
 		
-		var length : CGFloat = 50
+		var length : CGFloat = 100
 		if let _ = parent?.length {
 			length = self.getLength(parent: parent!)
 		}
@@ -100,7 +81,86 @@ class TreeScene: SKScene {
 		addToArray(depth: depth, branch: newBranch)
 		
 		// 4. Add Shape Node to view
-		self.addChild(newBranch.shapeNode)
+		if parent != nil {
+			parent?.shapeNode.addChild(newBranch.shapeNode)
+		} else {
+			self.addChild(newBranch.shapeNode)
+			ogBranch = newBranch
+		}
+	}
+	
+	func checkSize (branches: [Branch]) {
+		var right : CGFloat = 0.0
+		var left : CGFloat = 0.0
+		var maxY : CGFloat = 0.0
+		
+		for branch in branches {
+			if branch.endPos.y > maxY { maxY = branch.endPos.y }
+			if branch.endPos.x > right { right = branch.endPos.x }
+			else if branch.endPos.x < left { left = branch.endPos.x }
+		}
+		
+		let decreaseHeight : CGFloat = calculateDecrease(current: maxY, target: height)
+		
+		let decreaseRight  : CGFloat = calculateDecrease(current: right, target: width/2)
+		let decreaseLeft   : CGFloat = calculateDecrease(current: abs(left), target: width/2)
+		
+		let decreaseWidth = getBiggest(value1: decreaseLeft, value2: decreaseRight)
+		
+		if decreaseHeight > 0.0 || decreaseWidth > 0.0 {
+			if decreaseHeight > decreaseWidth {
+				let increase = calculateIncrease(current: height, target: maxY)
+				fixScale(decrease: decreaseHeight)
+				fixTreeSize(increase: increase)
+			}
+			else if decreaseRight > decreaseLeft {
+				let increase = calculateIncrease(current: width/2, target: right)
+				fixScale(decrease: decreaseRight)
+				fixTreeSize(increase: increase)
+				
+			}
+			else {
+				let increase = calculateIncrease(current: width/2, target: abs(left))
+				fixScale(decrease: decreaseLeft)
+				fixTreeSize(increase: increase)
+			}
+		}
+	}
+	
+	func fixScale (decrease: CGFloat) {
+		let multiplier = 1.0 - decrease
+		let scale = ogBranch.shapeNode.yScale
+		let newScale = scale * multiplier
+		
+		ogBranch.shapeNode.setScale(newScale)
+	}
+	
+	func fixTreeSize (increase: CGFloat) {
+		height = height * (1 + increase)
+		width  = width  * (1 + increase)
+	}
+	
+	func getBiggest (value1: CGFloat, value2: CGFloat) -> CGFloat {
+		if value1 > value2 {
+			return value1
+		}
+		else {
+			return value2
+		}
+	}
+	
+	func calculateDecrease (current: CGFloat, target: CGFloat) -> CGFloat {
+		if current > target {
+			return (current - target) / current
+		}
+		return 0.0
+	}
+	
+	func calculateIncrease (current: CGFloat, target: CGFloat) -> CGFloat {
+		if current < target {
+			return (target - current) / current
+		}
+		return 0.0
 	}
 	
 	func getLength (parent: Branch) -> CGFloat {
@@ -159,10 +219,10 @@ class Branch {
 		self.iniPos = initialPos
 		self.length = length
 		endPos = getEndPos(initialPos: initialPos, angle: angle, length: length)
-		shapeNode = drawLine(initialPos: initialPos, endPos: endPos, lineWidth: lineWidth)
+		shapeNode = drawLine(initialPos: initialPos, lineWidth: lineWidth)
 	}
 	
-	func drawLine (initialPos: CGPoint, endPos: CGPoint, lineWidth: CGFloat) -> SKShapeNode {
+	func drawLine (initialPos: CGPoint, lineWidth: CGFloat) -> SKShapeNode {
 		let path = UIBezierPath()
 		path.move(to: initialPos)
 		path.addLine(to: endPos)
