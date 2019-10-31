@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6FB31F82236B503200D5257A /* TreeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB31F81236B503200D5257A /* TreeGenerator.swift */; };
 		7AB5FED6235A367C0080D693 /* c2-wachoski WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 7AB5FED5235A367C0080D693 /* c2-wachoski WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7AB5FEDC235A367C0080D693 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5FEDA235A367C0080D693 /* Interface.storyboard */; };
 		7AB5FEDE235A36800080D693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5FEDD235A36800080D693 /* Assets.xcassets */; };
@@ -69,6 +70,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6FB31F81236B503200D5257A /* TreeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeGenerator.swift; sourceTree = "<group>"; };
 		7AB5FED1235A367C0080D693 /* c2-wachoski.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "c2-wachoski.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB5FED5235A367C0080D693 /* c2-wachoski WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "c2-wachoski WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB5FEDB235A367C0080D693 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				7AB5FF02235A36D10080D693 /* Classes.swift */,
 				7AB5FF05235A3EE50080D693 /* Model.swift */,
 				A58168742360E802009A465C /* DataAccessObject.swift */,
+				6FB31F81236B503200D5257A /* TreeGenerator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				7AB5FEEC235A36800080D693 /* ExtensionDelegate.swift in Sources */,
 				7AB5FF06235A3EE50080D693 /* Model.swift in Sources */,
 				7AB5FF03235A36D10080D693 /* Classes.swift in Sources */,
+				6FB31F82236B503200D5257A /* TreeGenerator.swift in Sources */,
 				7AB5FEEA235A36800080D693 /* InterfaceController.swift in Sources */,
 				A58168752360E80B009A465C /* DataAccessObject.swift in Sources */,
 			);
