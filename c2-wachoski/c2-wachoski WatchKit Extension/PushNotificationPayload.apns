@@ -9,7 +9,7 @@
         "thread-id": "5280"
     },
     
-    "WatchKit Simulator Actions": [
+    "WatchKit Simulator Actionsz: [
         {
             "title": "First Button",
             "identifier": "firstButtonAction"
