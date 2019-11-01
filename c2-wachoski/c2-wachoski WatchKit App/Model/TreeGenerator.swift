@@ -5,6 +5,32 @@
 //  Created by Kaz Born on 25/10/19.
 //  Copyright © 2019 Otávio Baziewicz Filho. All rights reserved.
 //
+/*
+>>>---------> TO MAKE WORK:
+class InterfaceController: WKInterfaceController {
+
+	@IBOutlet weak var scene: WKInterfaceSKScene!
+
+	var tree = TreeScene(size: CGSize(width: 200, height: 200))
+
+	override func willActivate() {
+		super.willActivate()
+
+			// Can change parameters:
+		tree.backgroundColor = .darkGray
+		scene.presentScene(tree, transition: .crossFade(withDuration: 0.1))
+
+			// Must have exactly like this:
+		tree.anchorPoint = CGPoint(x: 0.5, y: 0)
+		tree.createTree()
+	}
+}
+
+>>>---------> TO GROW NEXT LEVEL:
+Call funcion:
+	tree.growNewBranches()
+
+*/
 
 import SpriteKit
 import Foundation
