@@ -5,32 +5,31 @@
 //  Created by Kaz Born on 25/10/19.
 //  Copyright © 2019 Otávio Baziewicz Filho. All rights reserved.
 //
-/*
->>>---------> TO MAKE WORK:
-class InterfaceController: WKInterfaceController {
 
-	@IBOutlet weak var scene: WKInterfaceSKScene!
-
-	var tree = TreeScene(size: CGSize(width: 200, height: 200))
-
-	override func willActivate() {
-		super.willActivate()
-
-			// Can change parameters:
-		tree.backgroundColor = .darkGray
-		scene.presentScene(tree, transition: .crossFade(withDuration: 0.1))
-
-			// Must have exactly like this:
-		tree.anchorPoint = CGPoint(x: 0.5, y: 0)
-		tree.createTree()
-	}
-}
-
->>>---------> TO GROW NEXT LEVEL:
-Call funcion:
-	tree.growNewBranches()
-
-*/
+//>>>---------> TO MAKE WORK:
+//	class InterfaceController: WKInterfaceController {
+//
+//		@IBOutlet weak var scene: WKInterfaceSKScene!
+//
+//		var tree = TreeScene(size: CGSize(width: 200, height: 200))
+//
+//		override func willActivate() {
+//			super.willActivate()
+//
+//			// Can change parameters:
+//			tree.backgroundColor = .darkGray
+//			tree.color = .white
+//			scene.presentScene(tree, transition: .crossFade(withDuration: 0.1))
+//
+//			// Must have exactly like this:
+//			tree.anchorPoint = CGPoint(x: 0.5, y: 0)
+//			tree.createTree()
+//		}
+//	}
+//
+//>>>---------> TO GROW NEXT LEVEL:
+//	Call funcion:
+//		tree.growNewBranches()
 
 import SpriteKit
 import Foundation
@@ -81,6 +80,7 @@ class TreeScene: SKScene {
 			}
 		}
 		
+		// 4. Fix tree size in case it's too big to fit the screen
 		let newBranches : [Branch] = treeBranchs[minDepth-1]!
 		
 		checkSize(branches: newBranches)
@@ -89,25 +89,13 @@ class TreeScene: SKScene {
 	func createNewBranch (parent: Branch?, type: Character, depth: CGFloat) {
 		// 1. Get all values
 		let iniPos : CGPoint = parent?.endPos! ?? CGPoint(x: 0, y: 0)
-		
-		var length : CGFloat = 100
-		if let _ = parent?.length {
-			length = self.getLength(parent: parent!)
-		}
-		
-		var angle : CGFloat = 90
-		if let parAngle = parent?.angle {
-			if type == "A" {
-				angle = parAngle
-			} else {
-				angle = getAngle(parent: parent!)
-			}
-		}
+		let length = getLength(parent: parent)
+		let angle  = getAngle(parent: parent)
 		
 		// 2. Create new branch
 		let newBranch = Branch(color: color, type: type, initialPos: iniPos, angle: angle, length: length, parent: parent)
 		
-		// 3. Input new branch in the arrays
+		// 3. Input new branch in the array
 		addToArray(depth: depth, branch: newBranch)
 		
 		// 4. Add Shape Node to view
@@ -125,58 +113,42 @@ class TreeScene: SKScene {
 		var maxY  : CGFloat = 0.0
 		
 		for branch in branches {
-			if branch.endPos.y > maxY { maxY = branch.endPos.y }
-			if branch.endPos.x > right { right = branch.endPos.x }
-			else if branch.endPos.x < left { left = branch.endPos.x }
+			if branch.endPos.y > maxY      { maxY  = branch.endPos.y }
+			if branch.endPos.x > right     { right = branch.endPos.x }
+			else if branch.endPos.x < left { left  = branch.endPos.x }
 		}
 		
 		let decreaseHeight : CGFloat = calculateDecrease(current: maxY, target: height)
-		
 		let decreaseRight  : CGFloat = calculateDecrease(current: right, target: width/2)
 		let decreaseLeft   : CGFloat = calculateDecrease(current: abs(left), target: width/2)
 		
-		let decreaseWidth = getBiggest(value1: decreaseLeft, value2: decreaseRight)
-		
-		if decreaseHeight > 0.0 || decreaseWidth > 0.0 {
-			if decreaseHeight > decreaseWidth {
+		if decreaseHeight > 0.0 || decreaseRight > 0.0 || decreaseLeft > 0.0 {
+			if decreaseHeight > decreaseRight && decreaseHeight > decreaseLeft {
 				let increase = calculateIncrease(current: height, target: maxY)
-				fixScale(decrease: decreaseHeight)
-				fixTreeSize(increase: increase)
+				fixScale(decrease: decreaseHeight, increase: increase)
 			}
 			else if decreaseRight > decreaseLeft {
 				let increase = calculateIncrease(current: width/2, target: right)
-				fixScale(decrease: decreaseRight)
-				fixTreeSize(increase: increase)
+				fixScale(decrease: decreaseRight, increase: increase)
 				
 			}
 			else {
 				let increase = calculateIncrease(current: width/2, target: abs(left))
-				fixScale(decrease: decreaseLeft)
-				fixTreeSize(increase: increase)
+				fixScale(decrease: decreaseLeft, increase: increase)
 			}
 		}
 	}
 	
-	func fixScale (decrease: CGFloat) {
-		let multiplier = 1.0 - decrease
+	func fixScale (decrease: CGFloat, increase: CGFloat) {
+		// 1. Decrease tree size
 		let scale = ogBranch.shapeNode.yScale
-		let newScale = scale * multiplier
+		let newScale = scale * 1 - decrease
 		
 		ogBranch.shapeNode.setScale(newScale)
-	}
-	
-	func fixTreeSize (increase: CGFloat) {
+		
+		// 2. Fix tree size reference
 		height = height * (1 + increase)
 		width  = width  * (1 + increase)
-	}
-	
-	func getBiggest (value1: CGFloat, value2: CGFloat) -> CGFloat {
-		if value1 > value2 {
-			return value1
-		}
-		else {
-			return value2
-		}
 	}
 	
 	func calculateDecrease (current: CGFloat, target: CGFloat) -> CGFloat {
@@ -193,30 +165,44 @@ class TreeScene: SKScene {
 		return 0.0
 	}
 	
-	func getLength (parent: Branch) -> CGFloat {
-		let multiplier = CGFloat.random(in: 0.8...0.95)
-		return parent.length * multiplier
+	func getLength (parent: Branch?) -> CGFloat {
+		if let pLength = parent?.length {
+			let multiplier = CGFloat.random(in: 0.8...0.95)
+			return pLength * multiplier
+		}
+		return 100
 	}
 	
-	func getAngle (parent: Branch) -> CGFloat {
-		var angle : CGFloat = parent.angle + CGFloat.random(in: -60 ... 60)
+	func getAngle (parent: Branch?) -> CGFloat {
 		
-		// Safeguard to not grow horizontal
-		let safeguard : CGFloat = 10
-		
-		if angle > 180 - safeguard {
-			angle = 180 - safeguard
-			// to be sure it won't grow in a straight line
-			// "attracted" to the light
-			if angle == parent.angle { angle -= safeguard }
-		} else if angle < safeguard {
-			angle = safeguard
-			// to be sure it won't grow in a straight line
-			// "attracted" to the light
-			if angle == parent.angle { angle += safeguard }
+		// if parent != nil
+		if let pAngle = parent?.angle {
+			if parent!.type == "A" {
+				return pAngle
+			}
+			else {
+				var angle : CGFloat = pAngle + CGFloat.random(in: -60 ... 60)
+				
+				let safeguard : CGFloat = 10
+				
+				if angle > 180 - safeguard {
+					angle = 180 - safeguard
+					// to be sure it won't grow in a straight line
+					// "attracted" to the light
+					if angle == pAngle { angle -= safeguard }
+				} else if angle < safeguard {
+					angle = safeguard
+					// to be sure it won't grow in a straight line
+					// "attracted" to the light
+					if angle == pAngle { angle += safeguard }
+				}
+				
+				return angle
+			}
 		}
 		
-		return angle
+		// if parent == nil
+		return 90
 	}
 	
 	// ======== ALGORITHM FOR TREE GROWTH
@@ -236,7 +222,6 @@ class TreeScene: SKScene {
 			out = []
 		}
 		
-		out.shuffle()
 		return out
 	}
 	
@@ -295,25 +280,24 @@ class Branch {
 		return node
 	}
 	
-	/* THICKNESS:
-		--> # is how far the farthest tip is
-		
-		* Parent is always _AT LEAST_ 1 level higher than children
-		* Tips are always 1
-		* Tips are either:
-			- Last level created
-			- Type E (doesn't create children)
-	
-		Ex:
-		    \  /
-		    1\/1
-		  \  /   /
-		  1\/2  /1
-	        \  /
-	        3\/2
-			  \
-	          4\
-	*/
+	//============ THICKNESS:
+	//		--> # is how far the farthest tip is
+	//
+	//		* Parent is always _AT LEAST_ 1 level higher than children
+	//		* Tips are always 1
+	//		* Tips are either:
+	//			- Last level created
+	//			- Type E (doesn't create children)
+	//
+	//		Ex:
+	//				\  /
+	//				1\/1
+	//			  \  /   /
+	//			  1\/2  /1
+	//				\  /
+	//				3\/2
+	//				  \
+	//				  4\
 	func upgradeThickness () {
 		thickness += 1
 		
@@ -321,7 +305,9 @@ class Branch {
 			parent?.upgradeThickness()
 		}
 		
+		// Fix line width:
 		let width = thickness * 0.3
+		
 		shapeNode.lineWidth = width
 	}
 }
