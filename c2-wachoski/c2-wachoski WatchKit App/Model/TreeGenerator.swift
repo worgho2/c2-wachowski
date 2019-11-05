@@ -54,8 +54,16 @@ class TreeScene: SKScene {
 	func createTree () {
 		createNewBranch(parent: nil, type: "A", depth: 0)
 		
-		width = self.frame.size.width
-		height = self.frame.size.height
+		self.scaleMode = .resizeFill
+		
+		width = self.size.width
+		height = self.size.height
+	}
+	
+	override func didChangeSize(_ oldSize: CGSize) {
+		super.didChangeSize(oldSize)
+		width = self.size.width
+		height = self.size.height
 	}
 	
 	func growNewBranches () {
@@ -85,12 +93,13 @@ class TreeScene: SKScene {
 		
 		checkSize(branches: newBranches)
 	}
+
 	
 	func createNewBranch (parent: Branch?, type: Character, depth: CGFloat) {
 		// 1. Get all values
 		let iniPos : CGPoint = parent?.endPos! ?? CGPoint(x: 0, y: 0)
 		let length = getLength(parent: parent)
-		let angle  = getAngle(parent: parent)
+		let angle  = getAngle(type: type,parent: parent)
 		
 		// 2. Create new branch
 		let newBranch = Branch(color: color, type: type, initialPos: iniPos, angle: angle, length: length, parent: parent)
@@ -131,8 +140,7 @@ class TreeScene: SKScene {
 				let increase = calculateIncrease(current: width/2, target: right)
 				fixScale(decrease: decreaseRight, increase: increase)
 				
-			}
-			else {
+			} else {
 				let increase = calculateIncrease(current: width/2, target: abs(left))
 				fixScale(decrease: decreaseLeft, increase: increase)
 			}
@@ -142,7 +150,7 @@ class TreeScene: SKScene {
 	func fixScale (decrease: CGFloat, increase: CGFloat) {
 		// 1. Decrease tree size
 		let scale = ogBranch.shapeNode.yScale
-		let newScale = scale * 1 - decrease
+		let newScale = scale * (1 - decrease)
 		
 		ogBranch.shapeNode.setScale(newScale)
 		
@@ -173,11 +181,11 @@ class TreeScene: SKScene {
 		return 100
 	}
 	
-	func getAngle (parent: Branch?) -> CGFloat {
+	func getAngle (type: Character, parent: Branch?) -> CGFloat {
 		
 		// if parent != nil
 		if let pAngle = parent?.angle {
-			if parent!.type == "A" {
+			if type == "A" {
 				return pAngle
 			}
 			else {
