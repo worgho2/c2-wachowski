@@ -34,7 +34,7 @@
 		7AB5FF06235A3EE50080D693 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FF05235A3EE50080D693 /* Model.swift */; };
 		A58168752360E80B009A465C /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58168742360E802009A465C /* DataAccessObject.swift */; };
 		A5DD5E062368B8010096355A /* PlantFeeding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5DD5E042368B8010096355A /* PlantFeeding.storyboard */; };
-		A5DD5E0A236A0F630096355A /* PlantFeeding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD5E09236A0F630096355A /* PlantFeeding.swift */; };
+		A5DD5E0A236A0F630096355A /* PlantFeedingIC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD5E09236A0F630096355A /* PlantFeedingIC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,7 +111,7 @@
 		7AB5FF05235A3EE50080D693 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		A58168742360E802009A465C /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
 		A5DD5E052368B8010096355A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PlantFeeding.storyboard; sourceTree = "<group>"; };
-		A5DD5E09236A0F630096355A /* PlantFeeding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantFeeding.swift; sourceTree = "<group>"; };
+		A5DD5E09236A0F630096355A /* PlantFeedingIC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantFeedingIC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,7 +203,7 @@
 				7AB5FEF1235A36810080D693 /* Assets.xcassets */,
 				7AB5FEF3235A36810080D693 /* Info.plist */,
 				7AB5FEF4235A36810080D693 /* PushNotificationPayload.apns */,
-				A5DD5E09236A0F630096355A /* PlantFeeding.swift */,
+				A5DD5E09236A0F630096355A /* PlantFeedingIC.swift */,
 			);
 			path = "c2-wachoski WatchKit Extension";
 			sourceTree = "<group>";
@@ -367,7 +367,7 @@
 				6FB31F82236B503200D5257A /* TreeGenerator.swift in Sources */,
 				7AB5FEEA235A36800080D693 /* InterfaceController.swift in Sources */,
 				7A887B54236CBB6300FAE1F4 /* SoundEffects.swift in Sources */,
-				A5DD5E0A236A0F630096355A /* PlantFeeding.swift in Sources */,
+				A5DD5E0A236A0F630096355A /* PlantFeedingIC.swift in Sources */,
 				A58168752360E80B009A465C /* DataAccessObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
