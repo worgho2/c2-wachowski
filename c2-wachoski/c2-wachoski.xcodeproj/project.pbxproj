@@ -35,6 +35,9 @@
 		A58168752360E80B009A465C /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58168742360E802009A465C /* DataAccessObject.swift */; };
 		A5DD5E062368B8010096355A /* PlantFeeding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5DD5E042368B8010096355A /* PlantFeeding.storyboard */; };
 		A5DD5E0A236A0F630096355A /* PlantFeeding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD5E09236A0F630096355A /* PlantFeeding.swift */; };
+		B6D2276023733E9900CDD571 /* HealthKitSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2275F23733E9900CDD571 /* HealthKitSetup.swift */; };
+		B6D2276223733F2000CDD571 /* HealthKitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2276123733F2000CDD571 /* HealthKitData.swift */; };
+		B6D2276423733F4A00CDD571 /* RingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2276323733F4A00CDD571 /* RingData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +115,9 @@
 		A58168742360E802009A465C /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
 		A5DD5E052368B8010096355A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PlantFeeding.storyboard; sourceTree = "<group>"; };
 		A5DD5E09236A0F630096355A /* PlantFeeding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantFeeding.swift; sourceTree = "<group>"; };
+		B6D2275F23733E9900CDD571 /* HealthKitSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetup.swift; sourceTree = "<group>"; };
+		B6D2276123733F2000CDD571 /* HealthKitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitData.swift; sourceTree = "<group>"; };
+		B6D2276323733F4A00CDD571 /* RingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +221,9 @@
 				7AB5FF05235A3EE50080D693 /* Model.swift */,
 				A58168742360E802009A465C /* DataAccessObject.swift */,
 				6FB31F81236B503200D5257A /* TreeGenerator.swift */,
+				B6D2275F23733E9900CDD571 /* HealthKitSetup.swift */,
+				B6D2276123733F2000CDD571 /* HealthKitData.swift */,
+				B6D2276323733F4A00CDD571 /* RingData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -358,12 +367,15 @@
 				7A887B52236CBB6300FAE1F4 /* IntroWithLoop.swift in Sources */,
 				7AB5FEEE235A36800080D693 /* NotificationController.swift in Sources */,
 				7AB5FEF0235A36800080D693 /* ComplicationController.swift in Sources */,
+				B6D2276423733F4A00CDD571 /* RingData.swift in Sources */,
 				7AB5FEEC235A36800080D693 /* ExtensionDelegate.swift in Sources */,
+				B6D2276223733F2000CDD571 /* HealthKitData.swift in Sources */,
 				7A887B4B236CBAED00FAE1F4 /* CGFloatExtensions.swift in Sources */,
 				7A887B56236CBB6300FAE1F4 /* AudioLibrary.swift in Sources */,
 				7A887B53236CBB6300FAE1F4 /* AudioManager.swift in Sources */,
 				7AB5FF06235A3EE50080D693 /* Model.swift in Sources */,
 				7AB5FF03235A36D10080D693 /* Classes.swift in Sources */,
+				B6D2276023733E9900CDD571 /* HealthKitSetup.swift in Sources */,
 				6FB31F82236B503200D5257A /* TreeGenerator.swift in Sources */,
 				7AB5FEEA235A36800080D693 /* InterfaceController.swift in Sources */,
 				7A887B54236CBB6300FAE1F4 /* SoundEffects.swift in Sources */,
