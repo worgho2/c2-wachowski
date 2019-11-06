@@ -2,10 +2,10 @@ import Foundation
 
 class DataAccessObject {
     
-    private static let randomFilename = UUID().uuidString
-    private static let fullPath = getDocumentsDirectory().appendingPathComponent(randomFilename)
+    private static let fileNameBasedOnUniqueUUID = UUID().uuidString
+    private static let filePath = getDocumentsDirectory().appendingPathComponent(fileNameBasedOnUniqueUUID)
     
-    static func getDocumentsDirectory() -> URL {
+    private static func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
@@ -13,23 +13,22 @@ class DataAccessObject {
     static func storeUser() {
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: Model.instance.user!, requiringSecureCoding: false)
-            try data.write(to: fullPath)
+            try data.write(to: filePath)
+            print("SUCESSO SALVANDO EM CACHE")
         } catch {
-            print("Couldn't write file")
+            print("ERRO: [\(error.localizedDescription)]")
         }
     }
     
     static func retrieveUser() -> User? {
-        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: fullPath.path) as? Data else { return nil }
-        
         do {
-            if let loadedUser = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? User {
-                return loadedUser
-            }
+            let data = try Data(contentsOf: filePath)
+            let user = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? User
+            print("SUCESSO RECUPERANDO DO CACHE")
+            return user
         } catch {
-            print("Couldn't read file.")
+            print("ERRO: [\(error.localizedDescription)]")
+            return nil
         }
-        
-        return nil
     }
 }
