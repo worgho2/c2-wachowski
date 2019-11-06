@@ -38,6 +38,7 @@
 		B6D2276023733E9900CDD571 /* HealthKitSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2275F23733E9900CDD571 /* HealthKitSetup.swift */; };
 		B6D2276223733F2000CDD571 /* HealthKitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2276123733F2000CDD571 /* HealthKitData.swift */; };
 		B6D2276423733F4A00CDD571 /* RingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6D2276323733F4A00CDD571 /* RingData.swift */; };
+		A5DD5E0A236A0F630096355A /* PlantFeedingIC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD5E09236A0F630096355A /* PlantFeedingIC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		B6D2275F23733E9900CDD571 /* HealthKitSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetup.swift; sourceTree = "<group>"; };
 		B6D2276123733F2000CDD571 /* HealthKitData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitData.swift; sourceTree = "<group>"; };
 		B6D2276323733F4A00CDD571 /* RingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingData.swift; sourceTree = "<group>"; };
+		A5DD5E09236A0F630096355A /* PlantFeedingIC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantFeedingIC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,7 +211,7 @@
 				7AB5FEF1235A36810080D693 /* Assets.xcassets */,
 				7AB5FEF3235A36810080D693 /* Info.plist */,
 				7AB5FEF4235A36810080D693 /* PushNotificationPayload.apns */,
-				A5DD5E09236A0F630096355A /* PlantFeeding.swift */,
+				A5DD5E09236A0F630096355A /* PlantFeedingIC.swift */,
 			);
 			path = "c2-wachoski WatchKit Extension";
 			sourceTree = "<group>";
@@ -379,7 +381,7 @@
 				6FB31F82236B503200D5257A /* TreeGenerator.swift in Sources */,
 				7AB5FEEA235A36800080D693 /* InterfaceController.swift in Sources */,
 				7A887B54236CBB6300FAE1F4 /* SoundEffects.swift in Sources */,
-				A5DD5E0A236A0F630096355A /* PlantFeeding.swift in Sources */,
+				A5DD5E0A236A0F630096355A /* PlantFeedingIC.swift in Sources */,
 				A58168752360E80B009A465C /* DataAccessObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,7 +9,7 @@
         <!--PlantFeeding-->
         <scene sceneID="DQC-Vi-Bdi">
             <objects>
-                <controller identifier="PlantFeeding" title="PlantFeeding" id="0sx-rq-1UL" customClass="PlantFeeding" customModule="c2_wachoski_WatchKit_Extension">
+                <controller identifier="PlantFeeding" title="PlantFeeding" id="0sx-rq-1UL" customClass="PlantFeedingIC" customModule="c2_wachoski_WatchKit_Extension">
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" layout="overlap" radius="18.5" id="T5n-zv-Iqc">
                             <items>
@@ -40,26 +40,23 @@
                                 </group>
                             </items>
                             <gestureRecognizers>
-                                <swipeGestureRecognizer id="aaz-IP-1eI" userLabel="swipeRight">
+                                <swipeGestureRecognizer direction="8" id="wXy-SN-5rd" userLabel="Down Swipe Gesture Recognizer">
                                     <connections>
-                                        <action selector="rightSwipeGestureRecognizer:" destination="0sx-rq-1UL" id="2pN-5V-7zH"/>
+                                        <action selector="downSwipeGestureRecgnizer:" destination="0sx-rq-1UL" id="pag-h0-7Py"/>
                                     </connections>
                                 </swipeGestureRecognizer>
-                                <swipeGestureRecognizer direction="2" id="7Vs-Ev-pJR" userLabel="swipeLeft">
+                                <swipeGestureRecognizer direction="2" id="hNM-jQ-CbX" userLabel="Left Swipe Gesture Recognizer">
                                     <connections>
-                                        <action selector="leftSwipeGestureRecgnizer:" destination="0sx-rq-1UL" id="xsa-cP-wqq"/>
+                                        <action selector="leftSwipeGestureRecgnizer:" destination="0sx-rq-1UL" id="uQb-Jo-Nhl"/>
                                     </connections>
                                 </swipeGestureRecognizer>
-                                <swipeGestureRecognizer direction="4" id="JJd-Mn-aRC" userLabel="swipeUp"/>
-                                <swipeGestureRecognizer direction="8" id="xSq-oZ-Sfe" userLabel="swipeDown">
+                                <swipeGestureRecognizer id="nh7-rV-4Av" userLabel="Right Swipe Gesture Recognizer">
                                     <connections>
-                                        <action selector="downSwipeGestureRecgnizer:" destination="0sx-rq-1UL" id="utc-mo-r0q"/>
+                                        <action selector="rightSwipeGestureRecognizer:" destination="0sx-rq-1UL" id="qIp-Pf-1P5"/>
                                     </connections>
                                 </swipeGestureRecognizer>
                             </gestureRecognizers>
-                            <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                        </group>
+                        </spriteKitScene>
                     </items>
                     <connections>
                         <outlet property="scene" destination="yTM-dj-riw" id="mUB-t0-AXn"/>

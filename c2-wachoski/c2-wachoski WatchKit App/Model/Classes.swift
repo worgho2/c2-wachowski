@@ -1,19 +1,29 @@
 import Foundation
 
-class User {
-    static var next_id: Int = 0
-    
-    var id: Int
+class User: Codable {
     var name: String
-    var plants: [Plant] = []
+    var plants: [Plant]
     
-    init(name: String) {
-        self.id = User.next_id
-        User.next_id += 1
-        
+    enum CodingKeys: String, CodingKey {
+        case name
+        case plants
+    }
+    
+    init(name: String, plants: [Plant]) {
         self.name = name
-        self.id = 0
-        
+        self.plants = plants
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(plants, forKey: .plants)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        plants = try container.decode([Plant].self, forKey: .plants)
     }
     
     func addPlant(_ plant: Plant) {
@@ -33,29 +43,53 @@ class User {
         plants.remove(at: index)
         print("deuboa")
     }
-    
-    func updatePlant(fromId id: Int, infos: [String : Any]) {
-        //
-        
-    }
 }
 
-class Plant {
+class Plant: Codable {
     static var next_id: Int = 0
     
     var id: Int
     var name: String
-    var size = (water: 0, sun: 0, fertilizer: 0)
+    var water: Int
+    var sun: Int
+    var fertilizer: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case water
+        case sun
+        case fertilizer
+    }
         
     init(name: String, water: Int, sun: Int, fertilizer: Int) {
         self.id = Plant.next_id
         Plant.next_id += 1
         
         self.name = name
-        self.size.water = water
-        self.size.fertilizer = fertilizer
-        self.size.sun = sun
+        self.water = water
+        self.fertilizer = fertilizer
+        self.sun = sun
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(water, forKey: .water)
+        try container.encode(sun, forKey: .sun)
+        try container.encode(fertilizer, forKey: .fertilizer)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        water = try container.decode(Int.self, forKey: .water)
+        sun = try container.decode(Int.self, forKey: .sun)
+        fertilizer = try container.decode(Int.self, forKey: .fertilizer)
+    }
+    
     
     public func growBasedInResource(resource: Resource){
         let growthByResource = resource.growthBasedInRatio()
@@ -63,9 +97,9 @@ class Plant {
     }
     
     public func growAllResources(growth: (water: Int, sun: Int, fertilizer: Int)){
-        self.size.fertilizer += growth.fertilizer
-        self.size.sun += growth.sun
-        self.size.water += growth.water
+        self.fertilizer += growth.fertilizer
+        self.sun += growth.sun
+        self.water += growth.water
     }
 }
 
@@ -74,12 +108,7 @@ protocol Resource{
     func useResource()// used when the resource button is   ssed
     func growthBasedInRatio() -> Int/* uses growthRatio*/ // returnes how much the plant should grow based in circle results.
     
-    var growth : (water : Int, sun : Int, fertilizer: Int) {get set}
-    
-}
-
-extension Resource{
-    
+    var growth : (water : Int, sun : Int, fertilizer: Int) { get set }
 }
 
 class Water: Resource{
@@ -121,7 +150,6 @@ class Sun: Resource{
         return -1
     }
     
-    //
 }
 
 class Fertilizer: Resource{
@@ -141,16 +169,6 @@ class Fertilizer: Resource{
     
     func growthBasedInRatio() -> Int {
         return -1
-    }
-    
-    
-    //
-}
-class VisualPlant { // decide pelo growth index, qual imagem mostrar
-    let referencePlant: Plant
-    
-    init(referencePlant: Plant) {
-        self.referencePlant = referencePlant
     }
     
 }
