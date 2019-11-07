@@ -1,7 +1,9 @@
+
 import Foundation
 
 class Model {
     static let instance = Model()
+	
     private init() {
         DataAccessObject.loadFromUserDefaults()
     }
@@ -13,5 +15,8 @@ class Model {
         self.user = user()
     }
 
+	func updatePlant (plant: Plant) {
+		plants[plant.id] = plant
+	}
 }
 

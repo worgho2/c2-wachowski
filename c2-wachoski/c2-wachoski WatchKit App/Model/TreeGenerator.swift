@@ -42,6 +42,7 @@ class TreeScene: SKScene {
 	// Array of Branches by Level/Depth
 	//                [depthOfBranch : [Branches]]
 	var treeBranchs : [CGFloat: [Branch]] = [:]
+	var plant       : Plant!
 	
 	// Original Branch
 	var ogBranch    : Branch!
@@ -51,7 +52,11 @@ class TreeScene: SKScene {
 	var width  : CGFloat = 200
 	var height : CGFloat = 200
 	
+	
+	
 	func createTree () {
+		plant = Plant()
+		
 		createNewBranch(parent: nil, type: "A", depth: 0)
 		
 		self.scaleMode = .resizeFill
@@ -66,6 +71,7 @@ class TreeScene: SKScene {
 		height = self.size.height
 	}
 	
+	// ================== GROW TREE
 	func growNewBranches () {
 		// 1. Get the depth of the tips
 		var depth : [CGFloat] = []
@@ -92,9 +98,31 @@ class TreeScene: SKScene {
 		let newBranches : [Branch] = treeBranchs[minDepth-1]!
 		
 		checkSize(branches: newBranches)
+		
+		saveTree()
 	}
-
 	
+	// ======== ALGORITHM FOR TREE GROWTH
+	func getChildTypes (parentType: Character) -> [Character] {
+		var out : [Character] = []
+		
+		switch parentType {
+		case "A": // Splits in 2
+			out = ["A", "B"]
+		case "B": // Splits in 3
+			out = ["E", "C", "D"]
+		case "C": // Splits in 2
+			out = ["D", "B"]
+		case "D": // Grows longer
+			out = ["E"]
+		default: // Stops growing
+			out = []
+		}
+		
+		return out
+	}
+	
+	// ================== CREATE NEW BRANCH
 	func createNewBranch (parent: Branch?, type: Character, depth: CGFloat) {
 		// 1. Get all values
 		let iniPos : CGPoint = parent?.endPos! ?? CGPoint(x: 0, y: 0)
@@ -116,6 +144,48 @@ class TreeScene: SKScene {
 		}
 	}
 	
+	// ================= GET VALUES
+	func getLength (parent: Branch?) -> CGFloat {
+		if let pLength = parent?.length {
+			let multiplier = CGFloat.random(in: 0.8...0.95)
+			return pLength * multiplier
+		}
+		return 100
+	}
+	
+	func getAngle (type: Character, parent: Branch?) -> CGFloat {
+		
+		// if parent != nil
+		if let pAngle = parent?.angle {
+			if type == "A" {
+				return pAngle
+			}
+			else {
+				var angle : CGFloat = pAngle + CGFloat.random(in: -60 ... 60)
+				
+				let safeguard : CGFloat = 10
+				
+				if angle > 180 - safeguard {
+					angle = 180 - safeguard
+					// to be sure it won't grow in a straight line
+					// "attracted" to the light
+					if angle == pAngle { angle -= safeguard }
+				} else if angle < safeguard {
+					angle = safeguard
+					// to be sure it won't grow in a straight line
+					// "attracted" to the light
+					if angle == pAngle { angle += safeguard }
+				}
+				
+				return angle
+			}
+		}
+		
+		// if parent == nil
+		return 90
+	}
+	
+	// ===================== TREE SIZE RELATIVE TO SCREEN SIZE
 	func checkSize (branches: [Branch]) {
 		var right : CGFloat = 0.0
 		var left  : CGFloat = 0.0
@@ -173,66 +243,7 @@ class TreeScene: SKScene {
 		return 0.0
 	}
 	
-	func getLength (parent: Branch?) -> CGFloat {
-		if let pLength = parent?.length {
-			let multiplier = CGFloat.random(in: 0.8...0.95)
-			return pLength * multiplier
-		}
-		return 100
-	}
-	
-	func getAngle (type: Character, parent: Branch?) -> CGFloat {
-		
-		// if parent != nil
-		if let pAngle = parent?.angle {
-			if type == "A" {
-				return pAngle
-			}
-			else {
-				var angle : CGFloat = pAngle + CGFloat.random(in: -60 ... 60)
-				
-				let safeguard : CGFloat = 10
-				
-				if angle > 180 - safeguard {
-					angle = 180 - safeguard
-					// to be sure it won't grow in a straight line
-					// "attracted" to the light
-					if angle == pAngle { angle -= safeguard }
-				} else if angle < safeguard {
-					angle = safeguard
-					// to be sure it won't grow in a straight line
-					// "attracted" to the light
-					if angle == pAngle { angle += safeguard }
-				}
-				
-				return angle
-			}
-		}
-		
-		// if parent == nil
-		return 90
-	}
-	
-	// ======== ALGORITHM FOR TREE GROWTH
-	func getChildTypes (parentType: Character) -> [Character] {
-		var out : [Character] = []
-		
-		switch parentType {
-		case "A": // Splits in 2
-			out = ["A", "B"]
-		case "B": // Splits in 3
-			out = ["E", "C", "D"]
-		case "C": // Splits in 2
-			out = ["D", "B"]
-		case "D": // Grows longer
-			out = ["E"]
-		default: // Stops growing
-			out = []
-		}
-		
-		return out
-	}
-	
+	// ================== SAVE TREE
 	func addToArray (depth key: CGFloat, branch: Branch) {
 		if let _ = treeBranchs.index(forKey: key) {
 			treeBranchs[key]?.append(branch)
@@ -240,82 +251,11 @@ class TreeScene: SKScene {
 			treeBranchs[key] = [branch]
 		}
 	}
+	
+	func saveTree() {
+		plant.branches = treeBranchs
+		
+		Model.instance.updatePlant(plant: plant)
+	}
 }
 
-class Branch {
-	var type		: Character = "A"
-	var angle 		: CGFloat 	= 90
-	var thickness   : CGFloat   = 1
-	var length      : CGFloat!
-	var shapeNode 	: SKShapeNode!
-	var iniPos		: CGPoint!
-	var endPos		: CGPoint!
-	var parent		: Branch?
-	
-	init (color: UIColor, type: Character, initialPos: CGPoint, angle: CGFloat, length: CGFloat, parent: Branch?) {
-		self.parent = parent
-		self.angle  = angle
-		self.length = length
-		self.type   = type
-		iniPos      = initialPos
-		endPos 	    = getEndPos(initialPos: initialPos, angle: angle, length: length)
-		shapeNode   = drawLine(color: color)
-		
-		// makes sure the parent won't grow for every child
-		// only grows once
-		if self.parent?.thickness == 1 {
-			self.parent?.upgradeThickness()
-		}
-	}
-	
-	func getEndPos (initialPos: CGPoint, angle: CGFloat, length: CGFloat) -> CGPoint {
-		let x = initialPos.x + length * cos(angle * .pi / 180)
-		let y = initialPos.y + length * sin(angle * .pi / 180)
-		
-		return CGPoint(x: x, y: y)
-	}
-	
-	func drawLine (color: UIColor) -> SKShapeNode {
-		let path = UIBezierPath()
-		path.move(to: iniPos)
-		path.addLine(to: endPos)
-		
-		let node : SKShapeNode = SKShapeNode(path: path.cgPath)
-		node.fillColor = .clear
-		node.strokeColor = color
-		node.lineWidth = 1
-		
-		return node
-	}
-	
-	//============ THICKNESS:
-	//		--> # is how far the farthest tip is
-	//
-	//		* Parent is always _AT LEAST_ 1 level higher than children
-	//		* Tips are always 1
-	//		* Tips are either:
-	//			- Last level created
-	//			- Type E (doesn't create children)
-	//
-	//		Ex:
-	//				\  /
-	//				1\/1
-	//			  \  /   /
-	//			  1\/2  /1
-	//				\  /
-	//				3\/2
-	//				  \
-	//				  4\
-	func upgradeThickness () {
-		thickness += 1
-		
-		if parent?.thickness == thickness {
-			parent?.upgradeThickness()
-		}
-		
-		// Fix line width:
-		let width = thickness * 0.3
-		
-		shapeNode.lineWidth = width
-	}
-}
