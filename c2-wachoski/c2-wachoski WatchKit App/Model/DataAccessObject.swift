@@ -2,33 +2,40 @@ import Foundation
 
 class DataAccessObject {
     
-    private static let fileNameBasedOnUniqueUUID = UUID().uuidString
-    private static let filePath = getDocumentsDirectory().appendingPathComponent(fileNameBasedOnUniqueUUID)
-    
-    private static func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
     static func storeUser() {
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: Model.instance.user!, requiringSecureCoding: false)
-            try data.write(to: filePath)
-            print("SUCESSO SALVANDO EM CACHE")
-        } catch {
-            print("ERRO: [\(error.localizedDescription)]")
-        }
+        save(object: Model.instance.user, key: "user")
     }
     
     static func retrieveUser() -> User? {
-        do {
-            let data = try Data(contentsOf: filePath)
-            let user = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? User
-            print("SUCESSO RECUPERANDO DO CACHE")
-            return user
-        } catch {
-            print("ERRO: [\(error.localizedDescription)]")
-            return nil
+        return load(type: User.self, key: "user")
+    }
+    
+    static func save<T: Encodable>(object: T?, key: String) {
+        let userDefaults = UserDefaults.standard
+        if let object = object {
+            do {
+                let data = try JSONEncoder().encode(object)
+                userDefaults.set(data, forKey: key)
+            } catch  {
+                print("Erro ao salvar")
+            }
+        } else {
+            userDefaults.set(nil, forKey: key)
+            userDefaults.removeObject(forKey: key)
         }
+    }
+    
+    static func load<T : Decodable>(type: T.Type, key: String) -> T? {
+        let userDefaults  = UserDefaults.standard
+        if let value = userDefaults.data(forKey: key) {
+            do {
+                let object = try JSONDecoder().decode(T.self, from: value)
+                return object
+            } catch {
+                print("Não conseguiu decodar")
+                return nil
+            }
+        }
+        return nil
     }
 }

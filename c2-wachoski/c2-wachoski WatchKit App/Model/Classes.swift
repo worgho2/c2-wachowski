@@ -1,12 +1,18 @@
 import Foundation
+import HealthKit
 
 class User: Codable {
+    lazy var firstLoginDate: DateComponents = {
+        return setFirstLoginDate()
+    }()
+    
     var name: String
     var plants: [Plant]
     
     enum CodingKeys: String, CodingKey {
         case name
         case plants
+        case firstLoginDate
     }
     
     init(name: String, plants: [Plant]) {
@@ -18,30 +24,25 @@ class User: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(plants, forKey: .plants)
+        try container.encode(firstLoginDate, forKey: .firstLoginDate)
     }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
         plants = try container.decode([Plant].self, forKey: .plants)
+        firstLoginDate = try container.decode(DateComponents.self, forKey: .firstLoginDate)
     }
     
-    func addPlant(_ plant: Plant) {
-        if !plants.contains(where: { $0.id == plant.id } ) {
-            plants.append(plant)
-            print("Sucesso")
-        } else {
-            print("Erro do brabo")
-        }
-    }
     
-    func deletePlant(fromId id: Int) {
-        guard let index = plants.firstIndex(where: { $0.id == id } ) else {
-            print("erro")
-            return
-        }
-        plants.remove(at: index)
-        print("deuboa")
+    private func setFirstLoginDate() -> DateComponents{
+        var calendar = Calendar.autoupdatingCurrent
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+
+        var todayComponents = calendar.dateComponents([.year, .month, .day], from: Date())
+        todayComponents.calendar = calendar
+        
+        return todayComponents
     }
 }
 
@@ -72,103 +73,163 @@ class Plant: Codable {
         self.sun = sun
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(name, forKey: .name)
-        try container.encode(water, forKey: .water)
-        try container.encode(sun, forKey: .sun)
-        try container.encode(fertilizer, forKey: .fertilizer)
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
-        name = try container.decode(String.self, forKey: .name)
-        water = try container.decode(Int.self, forKey: .water)
-        sun = try container.decode(Int.self, forKey: .sun)
-        fertilizer = try container.decode(Int.self, forKey: .fertilizer)
-    }
-    
-    
-    public func growBasedInResource(resource: Resource){
-        let growthByResource = resource.growthBasedInRatio()
-        growAllResources(growth: resource.growth)
-    }
-    
-    public func growAllResources(growth: (water: Int, sun: Int, fertilizer: Int)){
-        self.fertilizer += growth.fertilizer
-        self.sun += growth.sun
-        self.water += growth.water
-    }
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(name, forKey: .name)
+//        try container.encode(water, forKey: .water)
+//        try container.encode(sun, forKey: .sun)
+//        try container.encode(fertilizer, forKey: .fertilizer)
+//    }
+//
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        id = try container.decode(Int.self, forKey: .id)
+//        name = try container.decode(String.self, forKey: .name)
+//        water = try container.decode(Int.self, forKey: .water)
+//        sun = try container.decode(Int.self, forKey: .sun)
+//        fertilizer = try container.decode(Int.self, forKey: .fertilizer)
+//    }
 }
 
-protocol Resource{
-    func interpretDataFromCircle() -> Int
-    func useResource()// used when the resource button is   ssed
-    func growthBasedInRatio() -> Int/* uses growthRatio*/ // returnes how much the plant should grow based in circle results.
-    
-    var growth : (water : Int, sun : Int, fertilizer: Int) { get set }
+struct ResourceData {
+    var currentValue: Double = 0.0
+    var goal: Double = 0.0
 }
 
-class Water: Resource{
-    var growth: (water: Int, sun: Int, fertilizer: Int)
+enum ResourceType {
+    case stand
+    case move
+    case exercise
+}
+
+class HealthKitManager {
     
-    init(){
-        growth = (0,0,0)
+    private enum HealthKitSetupError: Error {
+        case notAvailableOnDevice
+        case dataTypeNotAvailable
     }
     
-    func interpretDataFromCircle() -> Int {
-        return -1
-    }
-    
-    func useResource() {
+    static func requestHealthKitAuthorization(completion: @escaping (Bool, Error?) -> Swift.Void) {
+        guard HKHealthStore.isHealthDataAvailable() else {
+            completion(false, HealthKitSetupError.notAvailableOnDevice)
+            return
+        }
         
-    }
-    
-    func growthBasedInRatio() -> Int {
-        return -1
-    }
-}
-
-class Sun: Resource{
-    var growth: (water: Int, sun: Int, fertilizer: Int)
-    
-    init(){
-        growth  = (0,0,0)
-    }
-    
-    func interpretDataFromCircle() -> Int {
-        return -1
-    }
-    
-    func useResource() {
+        guard let activeEnergy = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned) else {
+            completion(false, HealthKitSetupError.dataTypeNotAvailable)
+            return
+        }
         
-    }
-    
-    func growthBasedInRatio() -> Int {
-        return -1
-    }
-    
-}
-
-class Fertilizer: Resource{
-    var growth: (water: Int, sun: Int, fertilizer: Int)
-
-    init(){
-        self.growth = (0,0,0)
-    }
-    
-    func interpretDataFromCircle() -> Int {
-        return -1
-    }
-    
-    func useResource() {
+        let allTypes: Set<HKSampleType> = [HKObjectType.workoutType(),
+                                           HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+                                           HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+                                           HKObjectType.quantityType(forIdentifier: .stepCount)!]
         
+        let objectTypes: Set<HKObjectType> = [HKObjectType.activitySummaryType()]
+        
+        HKHealthStore().requestAuthorization(toShare: allTypes, read: objectTypes) { (success, error) in
+            completion(success, error)
+        }
     }
     
-    func growthBasedInRatio() -> Int {
-        return -1
+    static func authorizeHealthKit() {
+        HealthKitManager.requestHealthKitAuthorization() { (authorized, error) in
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+                return
+            }
+            print("HealthKit Successfully Authorized.")
+        }
     }
+    
+    //Cria o filtro que define o período (data inicial e data final) em que o app deverá coletar os dados.
+    private static func createPredicate(_ initialDate : DateComponents) -> NSPredicate? {
+        var calendar = Calendar.autoupdatingCurrent
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        
+        var todayComponents = calendar.dateComponents([.year, .month, .day], from: Date())
+        todayComponents.calendar = calendar
+        
+//        var  = initialDate
+        
+        let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: initialDate, end: todayComponents)
+        return predicate
+    }
+    
+    static func getResourceData(initialDate: DateComponents, type: ResourceType) -> ResourceData {
+        return ResourceData(currentValue: 250, goal: 50)
+        var resourceTime = 0.0
+        var resourceGoal = 0.0
+        
+        let queryPredicate = createPredicate(initialDate)
+        
+        let query = HKActivitySummaryQuery(predicate: queryPredicate) { (query, summaries, error) -> Void in
+            if let summaries = summaries {
+                switch type {
+                case .move:
+                    for summary in summaries {
+                        resourceGoal = summary.activeEnergyBurnedGoal.doubleValue(for: HKUnit.kilocalorie())
+                        resourceTime += summary.activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
+                    }
+                case .stand:
+                    for summary in summaries {
+                        resourceGoal = summary.appleStandHoursGoal.doubleValue(for: HKUnit.count())
+                        resourceTime += summary.appleStandHours.doubleValue(for: HKUnit.count())
+                    }
+                case .exercise:
+                    for summary in summaries {
+                        resourceGoal = summary.appleExerciseTimeGoal.doubleValue(for: HKUnit.minute())
+                        resourceTime += summary.appleExerciseTime.doubleValue(for: HKUnit.minute())
+                    }
+                }
+                
+            }
+        }
+        HKHealthStore().execute(query)
+        return ResourceData(currentValue: resourceTime, goal: resourceGoal)
+    }
+    
+    
     
 }
+
+
+//    var CurrentResources = Resources()
+//
+//    override func awake(withContext context: Any?) {
+//        super.awake(withContext: context)
+//        UpdateSumOfRingValues()
+//    }
+//    private func UpdateSumOfRingValues(){
+//
+//        //Retorna, para cada recurso, a soma de todos os dados da Ring do usuário, desde
+//        //o ultimo login.
+//        Energy = HealthKitData.getMostRecentEnergySample(initialDate: firstLoginDate)
+//        Stand = HealthKitData.getMostRecentStandSample(initialDate: firstLoginDate)
+//        Exercise = HealthKitData.getMostRecentExerciseSample(initialDate: firstLoginDate)
+//        updateAccumulatedData()
+//    }
+//
+//    private func updateAccumulatedData(){
+//
+//        let data = HealthKitManager.getResourceData(initialDate: <#T##DateComponents#>, type: .exercise) {
+//
+//
+//        //Atualiza os recursos disponível para o usuário utilizar
+//        CurrentResources.energyBurned += Energy.currentValue - Energy.accumulated
+//        CurrentResources.standTime += Stand.currentValue - Stand.accumulated
+//        CurrentResources.exerciseTime += Exercise.currentValue - Exercise.accumulated
+//
+//        //Registra a quantidade de recursos acumulado pelo usuário desde o primeiro login
+//        //para manter a lógica top que eu usei.
+//        Energy.accumulated = Energy.currentValue - Energy.accumulated
+//        Stand.accumulated = Stand.currentValue - Stand.accumulated
+//        Exercise.accumulated = Exercise.currentValue - Exercise.accumulated
+//    }
+//}

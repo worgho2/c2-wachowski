@@ -3,17 +3,13 @@ import Foundation
 class Model {
     static let instance = Model()
     
-    var user: User?
+    var user: User
     
     private init() {
-        loadUser { () -> User? in
-            return DataAccessObject.retrieveUser()
-        }
-    }
-    
-    func loadUser( user: () -> User? ) {
-        self.user = user()
+        user = DataAccessObject.retrieveUser() ?? User(name: "Novo", plants: [])
     }
 
+    
+    
 }
 

@@ -10,7 +10,7 @@ class Song : NSObject {
     }
     
     internal func load(fileName: String) -> AVAudioPlayer{
-        let path = Bundle.main.path(forResource: fileName, ofType:nil)!
+        let path = Bundle.main.path(forResource: fileName, ofType: nil)!
         let url = URL(fileURLWithPath: path)
         
         do {
