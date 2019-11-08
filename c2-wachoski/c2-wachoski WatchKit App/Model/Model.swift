@@ -10,8 +10,8 @@ class Model {
         user = DataAccessObject.retrieveUser() ?? User(name: "Novo", plants: [])
     }
 
-	func updatePlant (plant: Plant) {
-		plants[plant.id] = plant
-	}
+//	func updatePlant (plant: Plant) {
+//		plants[plant.id] = plant
+//	}
 }
 
