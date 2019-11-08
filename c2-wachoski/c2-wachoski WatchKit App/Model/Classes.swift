@@ -156,8 +156,6 @@ class HealthKitManager {
         var todayComponents = calendar.dateComponents([.year, .month, .day], from: Date())
         todayComponents.calendar = calendar
         
-//        var  = initialDate
-        
         let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: initialDate, end: todayComponents)
         return predicate
     }
@@ -198,38 +196,3 @@ class HealthKitManager {
     
     
 }
-
-
-//    var CurrentResources = Resources()
-//
-//    override func awake(withContext context: Any?) {
-//        super.awake(withContext: context)
-//        UpdateSumOfRingValues()
-//    }
-//    private func UpdateSumOfRingValues(){
-//
-//        //Retorna, para cada recurso, a soma de todos os dados da Ring do usuário, desde
-//        //o ultimo login.
-//        Energy = HealthKitData.getMostRecentEnergySample(initialDate: firstLoginDate)
-//        Stand = HealthKitData.getMostRecentStandSample(initialDate: firstLoginDate)
-//        Exercise = HealthKitData.getMostRecentExerciseSample(initialDate: firstLoginDate)
-//        updateAccumulatedData()
-//    }
-//
-//    private func updateAccumulatedData(){
-//
-//        let data = HealthKitManager.getResourceData(initialDate: <#T##DateComponents#>, type: .exercise) {
-//
-//
-//        //Atualiza os recursos disponível para o usuário utilizar
-//        CurrentResources.energyBurned += Energy.currentValue - Energy.accumulated
-//        CurrentResources.standTime += Stand.currentValue - Stand.accumulated
-//        CurrentResources.exerciseTime += Exercise.currentValue - Exercise.accumulated
-//
-//        //Registra a quantidade de recursos acumulado pelo usuário desde o primeiro login
-//        //para manter a lógica top que eu usei.
-//        Energy.accumulated = Energy.currentValue - Energy.accumulated
-//        Stand.accumulated = Stand.currentValue - Stand.accumulated
-//        Exercise.accumulated = Exercise.currentValue - Exercise.accumulated
-//    }
-//}
