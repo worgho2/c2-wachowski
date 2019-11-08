@@ -161,8 +161,8 @@ class HealthKitManager {
     }
     
     static func getResourceData(initialDate: DateComponents, type: ResourceType) -> ResourceData {
-        return ResourceData(currentValue: 250, goal: 50)
-        var resourceTime = 0.0
+        return ResourceData(currentValue: 200, goal: 300)
+        var resourceValue = 0.0
         var resourceGoal = 0.0
         
         let queryPredicate = createPredicate(initialDate)
@@ -173,24 +173,24 @@ class HealthKitManager {
                 case .move:
                     for summary in summaries {
                         resourceGoal = summary.activeEnergyBurnedGoal.doubleValue(for: HKUnit.kilocalorie())
-                        resourceTime += summary.activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
+                        resourceValue += summary.activeEnergyBurned.doubleValue(for: HKUnit.kilocalorie())
                     }
                 case .stand:
                     for summary in summaries {
                         resourceGoal = summary.appleStandHoursGoal.doubleValue(for: HKUnit.count())
-                        resourceTime += summary.appleStandHours.doubleValue(for: HKUnit.count())
+                        resourceValue += summary.appleStandHours.doubleValue(for: HKUnit.count())
                     }
                 case .exercise:
                     for summary in summaries {
                         resourceGoal = summary.appleExerciseTimeGoal.doubleValue(for: HKUnit.minute())
-                        resourceTime += summary.appleExerciseTime.doubleValue(for: HKUnit.minute())
+                        resourceValue += summary.appleExerciseTime.doubleValue(for: HKUnit.minute())
                     }
                 }
                 
             }
         }
         HKHealthStore().execute(query)
-        return ResourceData(currentValue: resourceTime, goal: resourceGoal)
+        return ResourceData(currentValue: resourceValue, goal: resourceGoal)
     }
     
     

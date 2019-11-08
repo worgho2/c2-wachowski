@@ -13,6 +13,10 @@ import WatchKit
 class PlantFeeding: WKInterfaceController, WKCrownDelegate {
     @IBOutlet weak var plantInterfaceImage: WKInterfaceImage!
     
+    @IBOutlet weak var waterView: WKInterfaceGroup!
+    @IBOutlet weak var fertilizerView: WKInterfaceGroup!
+    @IBOutlet weak var sunView: WKInterfaceGroup!
+    
 	@IBOutlet weak var scene: WKInterfaceSKScene!
 	var tree = TreeScene()
     
@@ -21,11 +25,18 @@ class PlantFeeding: WKInterfaceController, WKCrownDelegate {
     var crownAccumulator = 0.0
     var zoom : Int = 1
     
+    var agua = ResourceModel.instance.agua
+    var sol = ResourceModel.instance.sol
+    var fertilizante = ResourceModel.instance.fertilizante
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         crownSequencer.delegate = self
+        agua = ResourceModel.instance.agua
+        sol = ResourceModel.instance.sol
+        fertilizante = ResourceModel.instance.fertilizante
         
-        let _ = ResourceModel.instance.agua
+        animateResourceCircle()
         
         // Can change parameters:
         tree.backgroundColor = .black
@@ -41,6 +52,7 @@ class PlantFeeding: WKInterfaceController, WKCrownDelegate {
     
 	override func willActivate() {
 		super.willActivate()
+        
 	}
 	
 	func growNextLevel () {
@@ -69,16 +81,19 @@ class PlantFeeding: WKInterfaceController, WKCrownDelegate {
         print("fertilizer")
         AudioManager.shared.play(soundEffect: .double)
 		growNextLevel()
+        useResource(resource: .fertilize)
     }
     @IBAction func downSwipeGestureRecgnizer(_ sender: Any) {
         print("sun")
         AudioManager.shared.play(soundEffect: .double)
 		growNextLevel()
+        useResource(resource: .sun)
     }
     @IBAction func leftSwipeGestureRecgnizer(_ sender: Any) {
         AudioManager.shared.play(soundEffect: .synth)
         print("water")
 		growNextLevel()
+        useResource(resource: .water)
     }
     
     
@@ -109,6 +124,45 @@ class PlantFeeding: WKInterfaceController, WKCrownDelegate {
             }
         }
     
+    func animateResourceCircle(){
+        self.waterView.setRelativeWidth(1, withAdjustment: 0)
+        self.sunView.setRelativeWidth(1, withAdjustment: 0)
+        self.fertilizerView.setRelativeWidth(1, withAdjustment: 0)
+        
+        animate(withDuration: 5) {
+            self.waterView.setRelativeHeight(0.7, withAdjustment: 0)
+//            self.waterView.setRelativeHeight(CGFloat(self.agua.available / self.agua.total), withAdjustment: 0)
+            
+            self.sunView.setRelativeHeight(0.5, withAdjustment: 0)
+//            self.sunView.setRelativeHeight(CGFloat(self.sol.available / self.sol.total), withAdjustment: 0)
+            
+            self.fertilizerView.setRelativeHeight(0.8, withAdjustment: 0)
+//            self.fertilizerView.setRelativeHeight(CGFloat(self.fertilizante.available / self.fertilizante.total), withAdjustment: 0)
+        }
+    }
     
+    enum ResourceType {
+        case sun
+        case water
+        case fertilize
+    }
+    
+    func useResource(resource : ResourceType){
+        animate(withDuration: 4) {
+            if (resource == .sun){
+                self.sol.available = 0
+                self.sunView.setRelativeHeight(CGFloat(self.sol.available / self.sol.total), withAdjustment: 0)
+                
+            }
+            else if (resource == .water){
+                self.agua.available = 0
+                self.waterView.setRelativeHeight(CGFloat(self.agua.available / self.agua.total), withAdjustment: 0)
+            }
+            else{
+                self.fertilizante.available = 0
+                self.fertilizerView.setRelativeHeight(CGFloat(self.fertilizante.available / self.fertilizante.total), withAdjustment: 0)
+            }
+        }
+    }
 }
     

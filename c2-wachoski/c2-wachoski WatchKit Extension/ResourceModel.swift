@@ -45,9 +45,6 @@ class ResourceModel {
             fertilizante.total = fertilizanteTotal.currentValue
             fertilizante.available += fertilizanteAvailable
             
-            fertilizante.available -= 100
-            agua.available -= 30
-            
             //Salvar dados
             DataAccessObject.save(object: sol, key: "sol")
             DataAccessObject.save(object: agua, key: "agua")
