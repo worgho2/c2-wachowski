@@ -10,7 +10,7 @@ class DataAccessObject {
         return load(type: User.self, key: "user")
     }
     
-    private static func save<T: Encodable>(object: T?, key: String) {
+    static func save<T: Encodable>(object: T?, key: String) {
         let userDefaults = UserDefaults.standard
         if let object = object {
             do {
@@ -25,7 +25,7 @@ class DataAccessObject {
         }
     }
     
-    private static func load<T : Decodable>(type: T.Type, key: String) -> T? {
+    static func load<T : Decodable>(type: T.Type, key: String) -> T? {
         let userDefaults  = UserDefaults.standard
         if let value = userDefaults.data(forKey: key) {
             do {
