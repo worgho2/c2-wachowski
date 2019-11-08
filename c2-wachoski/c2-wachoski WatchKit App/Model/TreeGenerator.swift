@@ -63,6 +63,8 @@ class TreeScene: SKScene {
 		
 		width = self.size.width
 		height = self.size.height
+        
+        backgroundColor = .black
 	}
 	
 	override func didChangeSize(_ oldSize: CGSize) {

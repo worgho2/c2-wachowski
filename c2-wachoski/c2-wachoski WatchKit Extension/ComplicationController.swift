@@ -1,13 +1,4 @@
-//
-//  ComplicationController.swift
-//  c2-wachoski WatchKit Extension
-//
-//  Created by Otávio Baziewicz Filho on 18/10/19.
-//  Copyright © 2019 Otávio Baziewicz Filho. All rights reserved.
-//
-
 import ClockKit
-
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     

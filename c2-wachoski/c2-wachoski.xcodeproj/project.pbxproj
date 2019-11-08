@@ -19,7 +19,6 @@
 		7A887B56236CBB6300FAE1F4 /* AudioLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A887B51236CBB6300FAE1F4 /* AudioLibrary.swift */; };
 		7A887B5E236CBBB600FAE1F4 /* click-double.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B58236CBBB600FAE1F4 /* click-double.mp3 */; };
 		7A887B5F236CBBB600FAE1F4 /* intro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B59236CBBB600FAE1F4 /* intro.mp3 */; };
-		7A887B60236CBBB600FAE1F4 /* night-at-the-club.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5A236CBBB600FAE1F4 /* night-at-the-club.mp3 */; };
 		7A887B61236CBBB600FAE1F4 /* loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5B236CBBB600FAE1F4 /* loop.mp3 */; };
 		7A887B62236CBBB600FAE1F4 /* dance-elevation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5C236CBBB600FAE1F4 /* dance-elevation.mp3 */; };
 		7A887B63236CBBB600FAE1F4 /* click-synth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5D236CBBB600FAE1F4 /* click-synth.mp3 */; };
@@ -27,16 +26,27 @@
 		7AB5FEDC235A367C0080D693 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5FEDA235A367C0080D693 /* Interface.storyboard */; };
 		7AB5FEDE235A36800080D693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5FEDD235A36800080D693 /* Assets.xcassets */; };
 		7AB5FEE5235A36800080D693 /* c2-wachoski WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7AB5FEE4235A36800080D693 /* c2-wachoski WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7AB5FEEA235A36800080D693 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FEE9235A36800080D693 /* InterfaceController.swift */; };
+		7AB5FEEA235A36800080D693 /* ResourceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FEE9235A36800080D693 /* ResourceModel.swift */; };
 		7AB5FEEC235A36800080D693 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FEEB235A36800080D693 /* ExtensionDelegate.swift */; };
 		7AB5FEEE235A36800080D693 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FEED235A36800080D693 /* NotificationController.swift */; };
 		7AB5FEF0235A36800080D693 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FEEF235A36800080D693 /* ComplicationController.swift */; };
 		7AB5FEF2235A36810080D693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5FEF1235A36810080D693 /* Assets.xcassets */; };
 		7AB5FF03235A36D10080D693 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FF02235A36D10080D693 /* Classes.swift */; };
 		7AB5FF06235A3EE50080D693 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FF05235A3EE50080D693 /* Model.swift */; };
+		7AC9F26023735BEF00AC39AC /* PlantFeeding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC9F25E23735BEF00AC39AC /* PlantFeeding.swift */; };
+		7AC9F263237598B000AC39AC /* click-synth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5D236CBBB600FAE1F4 /* click-synth.mp3 */; };
+		7AC9F264237598B000AC39AC /* click-synth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5D236CBBB600FAE1F4 /* click-synth.mp3 */; };
+		7AC9F265237598B300AC39AC /* click-double.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B58236CBBB600FAE1F4 /* click-double.mp3 */; };
+		7AC9F266237598B400AC39AC /* click-double.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B58236CBBB600FAE1F4 /* click-double.mp3 */; };
+		7AC9F26723759C4400AC39AC /* dance-elevation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5C236CBBB600FAE1F4 /* dance-elevation.mp3 */; };
+		7AC9F26823759C4500AC39AC /* dance-elevation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5C236CBBB600FAE1F4 /* dance-elevation.mp3 */; };
+		7AC9F26A23759D1900AC39AC /* loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5B236CBBB600FAE1F4 /* loop.mp3 */; };
+		7AC9F26B23759D1B00AC39AC /* intro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B59236CBBB600FAE1F4 /* intro.mp3 */; };
+		7AC9F26C23759E4700AC39AC /* night-at-the-club.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5A236CBBB600FAE1F4 /* night-at-the-club.mp3 */; };
+		7AC9F26D23759E4700AC39AC /* night-at-the-club.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A887B5A236CBBB600FAE1F4 /* night-at-the-club.mp3 */; };
+		7AC9F26F23759F5900AC39AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5FEDD235A36800080D693 /* Assets.xcassets */; };
 		A58168752360E80B009A465C /* DataAccessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58168742360E802009A465C /* DataAccessObject.swift */; };
 		A5DD5E062368B8010096355A /* PlantFeeding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5DD5E042368B8010096355A /* PlantFeeding.storyboard */; };
-		A5DD5E0A236A0F630096355A /* PlantFeeding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DD5E09236A0F630096355A /* PlantFeeding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,7 +114,7 @@
 		7AB5FEDD235A36800080D693 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7AB5FEDF235A36800080D693 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AB5FEE4235A36800080D693 /* c2-wachoski WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "c2-wachoski WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AB5FEE9235A36800080D693 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		7AB5FEE9235A36800080D693 /* ResourceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceModel.swift; sourceTree = "<group>"; };
 		7AB5FEEB235A36800080D693 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		7AB5FEED235A36800080D693 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		7AB5FEEF235A36800080D693 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -113,9 +123,9 @@
 		7AB5FEF4235A36810080D693 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		7AB5FF02235A36D10080D693 /* Classes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 		7AB5FF05235A3EE50080D693 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		7AC9F25E23735BEF00AC39AC /* PlantFeeding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlantFeeding.swift; sourceTree = "<group>"; };
 		A58168742360E802009A465C /* DataAccessObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessObject.swift; sourceTree = "<group>"; };
 		A5DD5E052368B8010096355A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PlantFeeding.storyboard; sourceTree = "<group>"; };
-		A5DD5E09236A0F630096355A /* PlantFeeding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantFeeding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,14 +210,14 @@
 		7AB5FEE8235A36800080D693 /* c2-wachoski WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				7AB5FEE9235A36800080D693 /* InterfaceController.swift */,
+				7AC9F25E23735BEF00AC39AC /* PlantFeeding.swift */,
+				7AB5FEE9235A36800080D693 /* ResourceModel.swift */,
 				7AB5FEEB235A36800080D693 /* ExtensionDelegate.swift */,
 				7AB5FEED235A36800080D693 /* NotificationController.swift */,
 				7AB5FEEF235A36800080D693 /* ComplicationController.swift */,
 				7AB5FEF1235A36810080D693 /* Assets.xcassets */,
 				7AB5FEF3235A36810080D693 /* Info.plist */,
 				7AB5FEF4235A36810080D693 /* PushNotificationPayload.apns */,
-				A5DD5E09236A0F630096355A /* PlantFeeding.swift */,
 			);
 			path = "c2-wachoski WatchKit Extension";
 			sourceTree = "<group>";
@@ -325,6 +335,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC9F26723759C4400AC39AC /* dance-elevation.mp3 in Resources */,
+				7AC9F265237598B300AC39AC /* click-double.mp3 in Resources */,
+				7AC9F263237598B000AC39AC /* click-synth.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,13 +346,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A887B63236CBBB600FAE1F4 /* click-synth.mp3 in Resources */,
+				7AC9F26C23759E4700AC39AC /* night-at-the-club.mp3 in Resources */,
 				7A887B62236CBBB600FAE1F4 /* dance-elevation.mp3 in Resources */,
 				7A887B5E236CBBB600FAE1F4 /* click-double.mp3 in Resources */,
 				A5DD5E062368B8010096355A /* PlantFeeding.storyboard in Resources */,
 				7AB5FEDE235A36800080D693 /* Assets.xcassets in Resources */,
 				7A887B61236CBBB600FAE1F4 /* loop.mp3 in Resources */,
 				7AB5FEDC235A367C0080D693 /* Interface.storyboard in Resources */,
-				7A887B60236CBBB600FAE1F4 /* night-at-the-club.mp3 in Resources */,
 				7A887B5F236CBBB600FAE1F4 /* intro.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,7 +361,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC9F26823759C4500AC39AC /* dance-elevation.mp3 in Resources */,
+				7AC9F264237598B000AC39AC /* click-synth.mp3 in Resources */,
+				7AC9F26A23759D1900AC39AC /* loop.mp3 in Resources */,
 				7AB5FEF2235A36810080D693 /* Assets.xcassets in Resources */,
+				7AC9F26B23759D1B00AC39AC /* intro.mp3 in Resources */,
+				7AC9F26D23759E4700AC39AC /* night-at-the-club.mp3 in Resources */,
+				7AC9F26F23759F5900AC39AC /* Assets.xcassets in Resources */,
+				7AC9F266237598B400AC39AC /* click-double.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,9 +393,9 @@
 				7AB5FF06235A3EE50080D693 /* Model.swift in Sources */,
 				7AB5FF03235A36D10080D693 /* Classes.swift in Sources */,
 				6FB31F82236B503200D5257A /* TreeGenerator.swift in Sources */,
-				7AB5FEEA235A36800080D693 /* InterfaceController.swift in Sources */,
+				7AB5FEEA235A36800080D693 /* ResourceModel.swift in Sources */,
 				7A887B54236CBB6300FAE1F4 /* SoundEffects.swift in Sources */,
-				A5DD5E0A236A0F630096355A /* PlantFeeding.swift in Sources */,
+				7AC9F26023735BEF00AC39AC /* PlantFeeding.swift in Sources */,
 				A58168752360E80B009A465C /* DataAccessObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
