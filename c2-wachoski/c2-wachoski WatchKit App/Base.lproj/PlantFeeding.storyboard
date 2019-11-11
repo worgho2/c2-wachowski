@@ -13,7 +13,7 @@
                     <items>
                         <group width="1" height="1" alignment="center" verticalAlignment="center" layout="overlap" radius="18.5" id="T5n-zv-Iqc">
                             <items>
-                                <group width="0.94999999999999996" height="0.94999999999999996" alignment="center" verticalAlignment="bottom" layout="overlap" id="6uy-kc-CUX">
+                                <group width="0.84999999999999998" height="0.86756540000000004" alignment="center" verticalAlignment="bottom" layout="overlap" id="6uy-kc-CUX">
                                     <items>
                                         <spriteKitScene width="1" height="1" alignment="center" verticalAlignment="center" id="yTM-dj-riw"/>
                                     </items>
@@ -52,6 +52,11 @@
                                 </group>
                             </items>
                             <gestureRecognizers>
+                                <swipeGestureRecognizer direction="4" id="Eo4-la-clz" userLabel="Up Swipe Gesture">
+                                    <connections>
+                                        <action selector="upSwipeGestureRecognizer:" destination="0sx-rq-1UL" id="sUk-Mj-hVb"/>
+                                    </connections>
+                                </swipeGestureRecognizer>
                                 <swipeGestureRecognizer direction="8" id="wXy-SN-5rd" userLabel="Down Swipe Gesture Recognizer">
                                     <connections>
                                         <action selector="downSwipeGestureRecgnizer:" destination="0sx-rq-1UL" id="McN-IA-osA"/>

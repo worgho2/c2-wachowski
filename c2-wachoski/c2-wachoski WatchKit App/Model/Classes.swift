@@ -161,7 +161,7 @@ class HealthKitManager {
     }
     
     static func getResourceData(initialDate: DateComponents, type: ResourceType) -> ResourceData {
-        return ResourceData(currentValue: 200, goal: 300)
+        return ResourceData(currentValue: 100, goal: 200)
         var resourceValue = 0.0
         var resourceGoal = 0.0
         
